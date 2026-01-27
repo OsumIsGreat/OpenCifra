@@ -244,7 +244,7 @@ class OpenCifraApp(MDApp):
 
     def fetch_suggestions(self, query):
         with self.search_lock:
-            url = f"https://solr.sscdn.co/cc/h2/?q={query}&limit=8&callback=suggest_callback"
+            url = f"https://solr.sscdn.co/cc/h2/?q={query}&limit=20&callback=suggest_callback"
             headers = {"User-Agent": "Mozilla/5.0"}
             try:
                 r = requests.get(url, headers=headers, timeout=5)
@@ -253,10 +253,14 @@ class OpenCifraApp(MDApp):
                 results = []
                 docs = data.get("response", {}).get("docs", [])
                 for item in docs:
-                    title = item.get("m")
-                    artist = item.get("a")
-                    if title and artist:
-                        results.append({"title": title, "artist": artist})
+                    item_type = item.get("t")
+                    if item_type == "2":
+                        title = item.get("m")
+                        artist = item.get("a")
+                        if title and artist:
+                            results.append({"title": title, "artist": artist})
+                            if len(results) >= 8:
+                                break
                 Clock.schedule_once(lambda dt: self.update_list(results), 0)
             except:
                 pass
@@ -300,27 +304,36 @@ class OpenCifraApp(MDApp):
             if variant_no_a not in variants:
                 variants.append(variant_no_a)
 
+        title_variants = [slug_title]
+        slug_title_no_a = re.sub(r"-a-", "-", slug_title)
+        if slug_title_no_a != slug_title:
+            title_variants.append(slug_title_no_a)
+
         success = False
         for variant in variants:
             variant = re.sub(r"-+", "-", variant)
-            url = f"https://www.cifraclub.com.br/{variant}/{slug_title}/"
-            try:
-                r = requests.get(url, headers=headers, timeout=10)
-                if r.status_code == 200:
-                    soup = BeautifulSoup(r.text, "html.parser")
-                    pre = soup.find("pre")
-                    if pre:
-                        song_text = self.parse_cifra_html(pre)
-                        footer_info = self.parse_footer_info(soup)
-                        if footer_info:
-                            song_text += "\n\n" + footer_info
-                        Clock.schedule_once(
-                            lambda dt: self.show_song(title, song_text), 0
-                        )
-                        success = True
-                        break
-            except:
-                continue
+            for title_slug in title_variants:
+                title_slug = re.sub(r"-+", "-", title_slug)
+                url = f"https://www.cifraclub.com.br/{variant}/{title_slug}/"
+                try:
+                    r = requests.get(url, headers=headers, timeout=10)
+                    if r.status_code == 200:
+                        soup = BeautifulSoup(r.text, "html.parser")
+                        pre = soup.find("pre")
+                        if pre:
+                            song_text = self.parse_cifra_html(pre)
+                            footer_info = self.parse_footer_info(soup)
+                            if footer_info:
+                                song_text += "\n\n" + footer_info
+                            Clock.schedule_once(
+                                lambda dt: self.show_song(title, song_text), 0
+                            )
+                            success = True
+                            break
+                except:
+                    continue
+            if success:
+                break
         if not success:
             Clock.schedule_once(lambda dt: self.show_song(title, "Song not found."), 0)
 
