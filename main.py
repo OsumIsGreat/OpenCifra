@@ -17,38 +17,45 @@ KV = """
 <SongItem@MDCard+ButtonBehavior>:
     title: ""
     artist: ""
-    radius: [15]
-    padding: "8dp"
+    radius: [12, 12, 12, 12]
+    padding: "12dp"
     size_hint_y: None
-    height: dp(82)
+    height: dp(72)
     md_bg_color: app.theme_cls.bg_light
-    elevation: 2
+    elevation: 1
     ripple_behavior: True
     on_release: app.open_song(root.title, root.artist)
 
     MDBoxLayout:
         orientation: "horizontal"
-        spacing: "12dp"
+        spacing: "10dp"
         adaptive_height: True
         pos_hint: {"center_y": .5}
 
-        MDIcon:
-            icon: "music-note-outline"
+        MDBoxLayout:
             size_hint: None, None
-            size: dp(40), dp(40)
-            theme_text_color: "Custom"
-            text_color: app.theme_cls.primary_color
+            size: dp(28), dp(28)
+            radius: [14]
+            md_bg_color: app.theme_cls.accent_color
             pos_hint: {"center_y": .5}
+            
+            MDIcon:
+                icon: "music"
+                size_hint: None, None
+                size: dp(14), dp(14)
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                pos_hint: {"center_x": .5, "center_y": .5}
 
         MDBoxLayout:
             orientation: "vertical"
-            spacing: "4dp"
+            spacing: "2dp"
             adaptive_height: True
             pos_hint: {"center_y": .5}
 
             MDLabel:
                 text: root.title
-                font_style: "Subtitle1"
+                font_style: "Body1"
                 theme_text_color: "Primary"
                 shorten: True
                 shorten_from: "right"
@@ -58,56 +65,94 @@ KV = """
             MDLabel:
                 text: root.artist
                 font_style: "Caption"
-                theme_text_color: "Secondary"
+                theme_text_color: "Hint"
                 shorten: True
                 shorten_from: "right"
                 adaptive_height: True
+
+        MDIcon:
+            icon: "chevron-right"
+            size_hint: None, None
+            size: dp(20), dp(20)
+            theme_text_color: "Hint"
+            pos_hint: {"center_y": .5}
 
 <SearchScreen>:
     name: "search"
     MDBoxLayout:
         orientation: "vertical"
-        md_bg_color: app.theme_cls.bg_dark
-
-        MDTopAppBar:
-            title: "OpenCifra"
-            anchor_title: "center"
-            elevation: 4
-            md_bg_color: app.theme_cls.primary_color
-            left_action_items: [["guitar-pick", lambda x: None]]
-            right_action_items: [["", lambda x: None]]
+        md_bg_color: app.theme_cls.bg_darkest
 
         MDBoxLayout:
             orientation: "vertical"
-            padding: "16dp"
-            spacing: "12dp"
+            size_hint_y: None
+            height: dp(140)
+            padding: ["20dp", "24dp", "20dp", "16dp"]
+            spacing: "8dp"
+            md_bg_color: app.theme_cls.primary_color
+            
+            MDBoxLayout:
+                orientation: "horizontal"
+                adaptive_height: True
+                spacing: "8dp"
+                
+                MDIcon:
+                    icon: "guitar-pick"
+                    size_hint: None, None
+                    size: dp(32), dp(32)
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 1
+                    pos_hint: {"center_y": .5}
+                
+                MDLabel:
+                    text: "OpenCifra"
+                    font_style: "H5"
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 1
+                    bold: True
+                    adaptive_height: True
+            
+            MDLabel:
+                text: "Your guitar companion"
+                font_style: "Caption"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 0.7
+                adaptive_height: True
 
             MDTextField:
                 id: search_field
-                hint_text: "Search song or artist"
-                mode: "fill"
+                hint_text: "Search songs, artists..."
+                mode: "round"
                 size_hint_x: 1
                 on_text: app.on_search_text(self.text)
                 multiline: False
+                fill_color_normal: 1, 1, 1, 0.15
+                fill_color_focus: 1, 1, 1, 0.2
+                hint_text_color_normal: 1, 1, 1, 0.5
+                text_color_normal: 1, 1, 1, 1
+                text_color_focus: 1, 1, 1, 1
 
-            MDRecycleView:
-                id: rv
-                viewclass: "SongItem"
-                RecycleBoxLayout:
-                    spacing: "12dp"
-                    padding: ["4dp", "8dp", "4dp", "40dp"]
-                    default_size_hint: 1, None
-                    size_hint_y: None
-                    height: self.minimum_height
-                    orientation: "vertical"
+        MDRecycleView:
+            id: rv
+            viewclass: "SongItem"
+            RecycleBoxLayout:
+                spacing: "8dp"
+                padding: ["16dp", "16dp", "16dp", "80dp"]
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: "vertical"
 
-        MDLabel:
-            text: "Made by Kayk Caputo"
+        MDBoxLayout:
             size_hint_y: None
-            height: dp(40)
-            halign: "center"
-            theme_text_color: "Hint"
-            font_style: "Caption"
+            height: dp(48)
+            md_bg_color: app.theme_cls.bg_darkest
+            
+            MDLabel:
+                text: "Made by Kayk Caputo"
+                halign: "center"
+                theme_text_color: "Hint"
+                font_style: "Caption"
 
 <LyricsScreen>:
     name: "lyrics"
@@ -115,29 +160,46 @@ KV = """
     song_text: ""
     MDBoxLayout:
         orientation: "vertical"
-        md_bg_color: app.theme_cls.bg_dark
+        md_bg_color: 0.08, 0.08, 0.1, 1
 
         MDTopAppBar:
             title: root.song_title
-            anchor_title: "center"
+            anchor_title: "left"
             left_action_items: [["arrow-left", lambda x: app.back_to_search()]]
-            right_action_items: [["", lambda x: None]]
-            elevation: 4
-            md_bg_color: app.theme_cls.primary_color
+            elevation: 0
+            md_bg_color: 0.08, 0.08, 0.1, 1
+            specific_text_color: 1, 1, 1, 1
 
         MDScrollView:
             id: lyrics_scroll
-            do_scroll_x: False
+            do_scroll_x: True
             do_scroll_y: True
             bar_width: dp(4)
+            bar_color: app.theme_cls.primary_color
             
             MDBoxLayout:
-                id: lyrics_container
                 orientation: "vertical"
                 size_hint: None, None
                 height: self.minimum_height
-                padding: "8dp"
+                padding: 0
                 spacing: 0
+                
+                MDCard:
+                    id: lyrics_card
+                    orientation: "vertical"
+                    size_hint: None, None
+                    height: lyrics_container.height + dp(32)
+                    padding: ["20dp", "16dp", "20dp", "16dp"]
+                    radius: [16]
+                    md_bg_color: 0.12, 0.12, 0.14, 1
+                    elevation: 0
+                    
+                    MDBoxLayout:
+                        id: lyrics_container
+                        orientation: "vertical"
+                        size_hint: None, None
+                        height: self.minimum_height
+                        spacing: 0
 """
 
 
@@ -161,7 +223,8 @@ class LyricsScreen(MDScreen):
 class OpenCifraApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Blue"
+        self.theme_cls.primary_palette = "DeepPurple"
+        self.theme_cls.accent_palette = "DeepPurple"
         Builder.load_string(KV)
         self.search_lock = threading.Lock()
         self.sm = MDScreenManager()
@@ -274,7 +337,7 @@ class OpenCifraApp(MDApp):
                         composer_text += content
                 composer_text = composer_text.strip()
                 if composer_text:
-                    footer_parts.append(f"[b][color=AAAAAA]{composer_text}[/color][/b]")
+                    footer_parts.append(f"[color=B39DDB]{composer_text}[/color]")
 
             creditos_elem = footer_elem.find("div", class_="cifra-creditos")
             if creditos_elem:
@@ -289,9 +352,8 @@ class OpenCifraApp(MDApp):
                                 users.append(user_name)
                     if users:
                         footer_parts.append(
-                            f"[color=888888]Collaboration and revision:[/color]"
+                            f"[color=9E9E9E]Contributors: {', '.join(users)}[/color]"
                         )
-                        footer_parts.append(f"[color=888888]{', '.join(users)}[/color]")
 
         return "\n".join(footer_parts)
 
@@ -300,7 +362,7 @@ class OpenCifraApp(MDApp):
         content = re.sub(r"<b>(.*?)</b>", r"CH_START\1CH_END", content)
         soup = BeautifulSoup(content, "html.parser")
         text = soup.get_text()
-        text = text.replace("CH_START", "[b][color=44AAFF]").replace(
+        text = text.replace("CH_START", "[b][color=B388FF]").replace(
             "CH_END", "[/color][/b]"
         )
         return text.strip()
@@ -335,7 +397,8 @@ class OpenCifraApp(MDApp):
             container.add_widget(label)
             if label.width > max_width:
                 max_width = label.width
-        container.width = max_width + dp(16)
+        container.width = max_width
+        screen.ids.lyrics_card.width = max_width + dp(40)
         self.root.current = "lyrics"
         Clock.schedule_once(self.reset_view, 0.2)
 
