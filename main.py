@@ -230,6 +230,13 @@ class OpenCifraApp(MDApp):
             variants.append("-e-".join(parts).replace(" ", "-"))
         else:
             variants.append(artist_norm.replace(" ", "-"))
+
+        base_variants = variants.copy()
+        for v in base_variants:
+            variant_no_a = re.sub(r"-a-", "-", v)
+            if variant_no_a not in variants:
+                variants.append(variant_no_a)
+
         success = False
         for variant in variants:
             variant = re.sub(r"-+", "-", variant)
@@ -241,6 +248,9 @@ class OpenCifraApp(MDApp):
                     pre = soup.find("pre")
                     if pre:
                         song_text = self.parse_cifra_html(pre)
+                        footer_info = self.parse_footer_info(soup)
+                        if footer_info:
+                            song_text += "\n\n" + footer_info
                         Clock.schedule_once(
                             lambda dt: self.show_song(title, song_text), 0
                         )
@@ -250,6 +260,40 @@ class OpenCifraApp(MDApp):
                 continue
         if not success:
             Clock.schedule_once(lambda dt: self.show_song(title, "Song not found."), 0)
+
+    def parse_footer_info(self, soup):
+        footer_parts = []
+
+        footer_elem = soup.find("div", class_="cifra-footer")
+        if footer_elem:
+            composer_elem = footer_elem.find("p", class_="cifra-composer")
+            if composer_elem:
+                composer_text = ""
+                for content in composer_elem.children:
+                    if isinstance(content, str):
+                        composer_text += content
+                composer_text = composer_text.strip()
+                if composer_text:
+                    footer_parts.append(f"[b][color=AAAAAA]{composer_text}[/color][/b]")
+
+            creditos_elem = footer_elem.find("div", class_="cifra-creditos")
+            if creditos_elem:
+                user_list = creditos_elem.find("ul", class_="user-list")
+                if user_list:
+                    users = []
+                    for li in user_list.find_all("li", recursive=False):
+                        link = li.find("a", class_="tooltip")
+                        if link:
+                            user_name = link.get("title") or link.get_text(strip=True)
+                            if user_name and user_name != "+2":
+                                users.append(user_name)
+                    if users:
+                        footer_parts.append(
+                            f"[color=888888]Collaboration and revision:[/color]"
+                        )
+                        footer_parts.append(f"[color=888888]{', '.join(users)}[/color]")
+
+        return "\n".join(footer_parts)
 
     def parse_cifra_html(self, pre_tag):
         content = str(pre_tag)
