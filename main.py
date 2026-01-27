@@ -9,6 +9,7 @@ from kivymd.uix.label import MDLabel
 from kivy.metrics import dp
 import threading
 import requests
+import logging
 import json
 import re
 from bs4 import BeautifulSoup
@@ -262,8 +263,18 @@ class OpenCifraApp(MDApp):
                             if len(results) >= 8:
                                 break
                 Clock.schedule_once(lambda dt: self.update_list(results), 0)
-            except:
-                pass
+
+            except requests.Timeout:
+                logging.error("Timeout while fetching suggestions")
+                Clock.schedule_once(lambda dt: self.show_error("Connection timeout"), 0)
+
+            except requests.RequestException as e:
+                logging.error(f"Network error fetching suggestions: {e}")
+                Clock.schedule_once(lambda dt: self.show_error("Network error"), 0)
+
+            except json.JSONDecodeError as e:
+                logging.error(f"Failed to parse suggestion JSON: {e}")
+                Clock.schedule_once(lambda dt: self.show_error("Data parsing error"), 0)
 
     def update_list(self, data):
         self.root.get_screen("search").ids.rv.data = data
@@ -317,23 +328,38 @@ class OpenCifraApp(MDApp):
                 url = f"https://www.cifraclub.com.br/{variant}/{title_slug}/"
                 try:
                     r = requests.get(url, headers=headers, timeout=10)
-                    if r.status_code == 200:
-                        soup = BeautifulSoup(r.text, "html.parser")
-                        pre = soup.find("pre")
-                        if pre:
-                            song_text = self.parse_cifra_html(pre)
-                            footer_info = self.parse_footer_info(soup)
-                            if footer_info:
-                                song_text += "\n\n" + footer_info
-                            Clock.schedule_once(
-                                lambda dt: self.show_song(title, song_text), 0
-                            )
-                            success = True
-                            break
-                except:
-                    continue
+                    r.raise_for_status()  # Raises HTTPError for non-200 responses
+                    soup = BeautifulSoup(r.text, "html.parser")
+                    pre = soup.find("pre")
+                    if pre:
+                        song_text = self.parse_cifra_html(pre)
+                        footer_info = self.parse_footer_info(soup)
+                        if footer_info:
+                            song_text += "\n\n" + footer_info
+                        Clock.schedule_once(
+                            lambda dt: self.show_song(title, song_text), 0
+                        )
+                        success = True
+                        break
+                except requests.Timeout:
+                    logging.error(f"Timeout fetching song {title} by {artist}")
+                    Clock.schedule_once(
+                        lambda dt: self.show_song(title, "Connection timeout"), 0
+                    )
+                except requests.RequestException as e:
+                    logging.error(f"Network error fetching song {title}: {e}")
+                    Clock.schedule_once(
+                        lambda dt: self.show_song(title, "Network error"), 0
+                    )
+                except Exception as e:
+                    logging.error(f"Error parsing song {title}: {e}")
+                    Clock.schedule_once(
+                        lambda dt: self.show_song(title, "Failed to fetch song"), 0
+                    )
             if success:
                 break
+
+
         if not success:
             Clock.schedule_once(lambda dt: self.show_song(title, "Song not found."), 0)
 
