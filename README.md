@@ -1,98 +1,159 @@
 # OpenCifra
 
-OpenCifra is a Python application built with Kivy and KivyMD that serves as a songbook and lyrics viewer. It allows users to search for songs and artists, view lyrics with chords, and is designed to be mobile-friendly (Android).
+OpenCifra is a free and open-source Python application built with **Kivy** and **KivyMD** that serves as a songbook and lyrics viewer.
+It allows users to search for songs and artists, view lyrics with chord notation, and is designed to be mobile-friendly (desktop and Android).
+
+This repository contains only the source code of the application.
+
 
 ## Features
 
-- **Search**: Real-time search for songs and artists using an online API.
-- **Lyrics & Chords**: View song lyrics with chords highlighted.
-- **Chord Database**: Includes a comprehensive database of guitar chords.
-- **Offline & Online**: Uses `guitar.json` for chord shapes (offline) and fetches song data online (CifraClub).
-- **Responsive UI**: Material Design interface suited for mobile devices.
+* Search songs and artists from public online sources
+* Display lyrics with chord notation
+* Responsive interface using **Kivy / KivyMD**
+* Works on desktop and can be packaged for Android
+* Fully free, open-source, and non-commercial
+
 
 ## Requirements
 
-The project relies on the following Python packages:
+* Python 3.x
+* Kivy
+* KivyMD
+* Requests
+* BeautifulSoup4
+* Pyjnius
 
-- `python3`
-- `kivy`
-- `kivymd`
-- `requests`
-- `beautifulsoup4`
-- `pyjnius`
+Other dependencies (openssl, certifi, etc.) are automatically handled during the Android build process.
 
-And other dependencies automatically handled during the Android build process (openssl, certifi, etc.).
 
 ## Installation (Desktop)
 
-1.  **Clone the repository**:
+Clone the repository:
 
-    ```bash
-    git clone https://github.com/your-username/OpenCifra.git
-    cd OpenCifra
-    ```
+```bash
+git clone https://github.com/KaykCaputo/OpenCifra.git
+cd OpenCifra
+```
 
-2.  **Set up a Virtual Environment**:
+Set up a virtual environment:
 
-    ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate
-    ```
+```bash
+python3 -m venv .venv
+source .venv/bin/activate  # Linux/macOS
+.venv\Scripts\activate     # Windows
+```
 
-3.  **Install Dependencies**:
-    ```bash
-    pip install kivy kivymd requests beautifulsoup4 pyjnius
-    ```
+Install dependencies:
 
-## Usage
+```bash
+pip install kivy kivymd requests beautifulsoup4 pyjnius
+```
 
-To run the application on your desktop:
+Run the application:
 
 ```bash
 python main.py
 ```
 
+
 ## Installation (Android)
 
-You can download the latest pre-built APK suitable for your device from the [GitHub Releases](https://github.com/KaykCaputo/OpenCifra/releases) page.
+Download the latest pre-built APK from the GitHub **Releases** page.
+Install it on your device (you may need to enable "Install from Unknown Sources").
 
-1.  Download the `.apk` file.
-2.  Install it on your device (you may need to enable "Install from Unknown Sources").
+### Building from Source
 
-## Building for Android
+This project uses **Buildozer**:
 
-If you prefer to build the APK yourself from source, this project is configured to use [Buildozer](https://github.com/kivy/buildozer).
+1. Install Buildozer following the official guide.
+2. Build the APK:
 
-1.  **Install Buildozer**:
-    Follow the [official Buildozer installation guide](https://buildozer.readthedocs.io/en/latest/installation.html).
+```bash
+buildozer android debug
+```
 
-2.  **Build the APK**:
+3. Transfer the `.apk` file from the `bin/` folder to your device and install it.
 
-    ```bash
-    buildozer android debug
-    ```
-
-    This command will download the Android SDK/NDK, compile the Python requirements, and generate the APK in the `bin/` directory.
-
-3.  **Install on Android**:
-    Transfer the generated `.apk` file from the `bin/` folder to your Android device and install it. You may need to enable "Install from Unknown Sources" in your device settings.
 
 ## File Structure
 
-- `main.py`: The main application entry point containing the UI logic and API handling.
-- `guitar.json`: A JSON database containing guitar chord variations and fingering positions.
-- `buildozer.spec`: Configuration file for Buildozer, defining build requirements and permissions.
+* `main.py`: Main application entry point containing UI logic and API handling
+* `guitar.json`: Database of guitar chords and finger positions
+* `buildozer.spec`: Buildozer configuration file for Android packaging
 
-## Credits and Attributions
 
-- **Chords Database**: `guitar.json` is from [chords-db](https://github.com/tombatossals/chords-db) by [tombatossals](https://github.com/tombatossals).
-- **Lyrics Source**: Lyrics and chords are fetched in real-time from the CifraClub website. **All content is copyright of their respective owners**.  
+## Legal Notice
 
-## Disclaimer
+OpenCifra does **not store, host, or redistribute** any copyrighted lyrics, or musical content.
 
-OpenCifra is an independent project and is **not affiliated with or endorsed by Cifra Club**.  
-This app is intended for **personal and educational use only**, and **redistribution or commercial use of Cifra Club content is prohibited**.
+All lyrics and chords displayed are:
+
+* Retrieved in real time from public web sources
+* Displayed temporarily at the user’s request
+* Owned by their respective authors and copyright holders
+
+OpenCifra functions as a client-side viewer, similar to a web browser, and **does not maintain its own database of musical works**.
+
+If you are a copyright holder and believe that content accessed through this application infringes your rights, please open an issue in this repository.
+
+
+## Privacy
+
+OpenCifra does **not**:
+
+* Collect personal data
+* Track users
+* Use analytics
+* Store song content on servers
+
+All processing happens locally on the user’s device.
+
+
+## Educational Purpose
+
+OpenCifra is intended for:
+
+* Music students
+* Practice and study
+* Educational and non-commercial use
+
+The project aims to democratize access to music learning tools through free and open-source software.
+
+
+## Contributions
+
+Contributions are welcome:
+
+* Open issues
+* Submit pull requests
+* Improve documentation
+* Suggest architectural or legal improvements
+
+Please ensure contributions respect open-source principles and copyright.
+
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**.
+
+You are free to:
+
+* Use
+* Modify
+* Distribute
+* Fork
+
+As long as the original copyright notice and license text are included. See the LICENSE file for details.
+
+
+## Optional Donations
+
+Donations, if any, are voluntary and intended solely to support the development of the open-source software.
+They do not provide access to any musical content or additional features.
+
+
+## Disclaimer
+
+This project is provided “as is,” without warranty of any kind.
+The authors are not responsible for the use of third-party content accessed by users through the application.
