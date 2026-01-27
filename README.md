@@ -85,8 +85,13 @@ If you prefer to build the APK yourself from source, this project is configured 
 
 ## Credits and Attributions
 
-- **Chords Database**: The `guitar.json` chords database used in this project is from the [chords-db](https://github.com/tombatossals/chords-db) project by [tombatossals](https://github.com/tombatossals).
-- **Lyrics Source**: The content of the chords is obtained through the CifraClub website.
+- **Chords Database**: `guitar.json` is from [chords-db](https://github.com/tombatossals/chords-db) by [tombatossals](https://github.com/tombatossals).
+- **Lyrics Source**: Lyrics and chords are fetched in real-time from the CifraClub website. **All content is copyright of their respective owners**.  
+
+## Disclaimer
+
+OpenCifra is an independent project and is **not affiliated with or endorsed by Cifra Club**.  
+This app is intended for **personal and educational use only**, and **redistribution or commercial use of Cifra Club content is prohibited**.
 
 ## License
 
