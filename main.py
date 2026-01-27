@@ -359,6 +359,7 @@ class OpenCifraApp(MDApp):
             if success:
                 break
 
+
         if not success:
             Clock.schedule_once(lambda dt: self.show_song(title, "Song not found."), 0)
 
