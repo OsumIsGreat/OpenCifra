@@ -6,6 +6,14 @@ It allows users to search for songs and artists, view lyrics with chord notation
 This repository contains only the source code of the application.
 
 
+## Screenshots
+
+<p align="center">
+  <img src="screenshot1.jpeg" width="300" alt="Search Screen"/>
+  <img src="screenshot2.jpeg" width="300" alt="Lyrics Screen"/>
+</p>
+
+
 ## Features
 
 * Search songs and artists from public online sources
